@@ -1,0 +1,103 @@
+[
+    {
+        "id": 1, 
+        "nombre": "Smart tv Philips 6900", 
+        "precio": 110000,
+        "descripcion": "Full HD - Dolby Atmos - Android 10 - 3 puertos HDMI - 2 puertos USB",
+        "img": "https://images.philips.com/is/image/philipsconsumer/6beb5493cd3d4725bd0cafb700cc4cb9?$jpglarge$&wid=420&hei=360 " 
+    },
+    {
+        "id": 2,
+        "nombre": "Tablet Lenovo tab M10",
+        "precio": 140000, 
+        "descripcion": "Memoria interna de 256 GB - incluye cable USB-c - Procesador quad-Core", 
+        "img": "https://images.fravega.com/f500/a4b5fffbab7e13d5a52f41e71aaf0366.jpg" 
+    },
+    {
+        "id": 3, 
+        "nombre": "Auriculares Sony 1000X", 
+        "precio": 160000, 
+        "descripcion": "Alcance 10m - 30 hs de duración de batería - Cancelación de ruido", 
+        "img": "https://www.sony.com.ar/image/5d02da5df552836db894cead8a68f5f3?fmt=pjpeg&wid=330&bgcolor=FFFFFF&bgc=FFFFFF" 
+    },
+    {
+        "id": 4, 
+        "nombre": "Smart Watch Samsung 5pro", 
+        "precio": 175000, 
+        "descripcion": "Pantalla SAMOLED de 1.4 - Resistente hasta 50 mts bajo el agua - 80 hs de duración de batería", 
+        "img": "https://http2.mlstatic.com/D_NQ_NP_2X_932337-MLU54959626547_042023-F.webp" 
+    },
+    {
+        "id": 5, 
+        "nombre": "Celular Motorola G72", 
+        "precio": 135000, 
+        "descripcion": "Dual SIM - Almacenamiento interno de 128 GB - Memoria RAM de 6 GB", 
+        "img": "https://www.cetrogar.com.ar/media/catalog/product/2/0/2022_victoria_basicpack_bright-white_pdp-hero.jpg?width=500&height=500&canvas=500,500&quality=80&bg-color=255,255,255&fit=bounds"
+    },
+    {
+        "id": 6, 
+        "nombre": "Notebook Lenovo V15", 
+        "precio": 436000, 
+        "descripcion": "Core i5 - 16 GB RAM - Placa de video Iris Xe G7 - Es antireflejo", 
+        "img": "https://http2.mlstatic.com/D_NQ_NP_2X_859834-MLU70065239743_062023-F.webp" 
+    },
+    {
+        "id": 7, 
+        "nombre": "Proyector Samsung Sp-Isp3blaxzb", 
+        "precio": 330000, 
+        "descripcion": "Mini HDMI - Full HD 1080 p - Tecnología de proyeción DLP", 
+        "img": "https://http2.mlstatic.com/D_NQ_NP_2X_917779-MLA50739463894_072022-F.webp" 
+    },
+    {
+        "id": 8, 
+        "nombre": "Asistente Amazon 5th Gen", 
+        "precio": 55000, 
+        "descripcion": "Con reconocimiento de voz - Control inteligente de dispositivos del Hogar - Pantalla digital", 
+        "img": "https://http2.mlstatic.com/D_NQ_NP_780781-MLU69957173342_062023-O.webp" 
+    },
+    {
+        "id": 9, 
+        "nombre": "Samsung S23 ultra", 
+        "precio": 610000, 
+        "descripcion": "Memoria interna de 256 GB - Cámaras de 200 mpx y 12 mpx - Procesador Snapdragon 735", 
+        "img": "https://images.start.com.ar/SM-S918BZKMARO-3.jpg" 
+    },
+    {
+        "id": 10, 
+        "nombre": "Monitor LG ultra Wide", 
+        "precio": 390000, 
+        "descripcion": "Pantalla LCD de 34p - 75Hz de frecuencia - Respuesta de 5ms", 
+        "img": "https://images.fravega.com/f300/2801e349c144f409f5d41bd5814aedb4.jpg.webp" 
+    },
+    {
+        "id": 11, 
+        "nombre": "Notebook Lenovo Legion 5", 
+        "precio": 1000000, 
+        "descripcion": "Core I7 - 512 ssd - 16 gb ram - Placa NVIDIA RTX 3060", 
+        "img": "https://images.start.com.ar/82JH00KMAR.jpg" 
+    },
+    {
+        "id": 12, 
+        "nombre": "Samsung Z Flip5", 
+        "precio": 650000, 
+        "descripcion": "Plegable - Almacenamiento de 512 gb - Cámara de 12 mgp", 
+        "img": "https://images.start.com.ar/SM-F731BZEKARO-2.jpg" 
+    },
+    {
+        "id": 13, 
+        "nombre": "Impresora Epson L3210", 
+        "precio": 350000, 
+        "descripcion": "Impresora multifunción - Capacidad máxima de 130 hojas", 
+        "img": "https://images.start.com.ar/C11CJ68303.jpg" 
+    },
+    {
+        "id": 14, 
+        "nombre": "Micrófono Logitech Yeti Silver", 
+        "precio": 200000, 
+        "descripcion": "Color Blanco - Máxima calidad de grabación - Conección USB", 
+        "img": "https://images.start.com.ar/988-000103.jpg" 
+    }
+    
+    ]
+    
+    

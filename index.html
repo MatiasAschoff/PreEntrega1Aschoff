@@ -14,6 +14,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!--CSS-->
     <link rel="stylesheet" href="style.css">
+    <!--ICONO-->
+    <link rel="icon" href="./img/telefono-inteligente.png">
 </head>
 <body>
     <header>
@@ -52,10 +54,25 @@
         </nav>
     </header>
     <main>
+        <!--BANNER-->
+        <section>
+            <div class="row Banner"><!--fila 1 col 1-->
+                <div class="col-lg-6 col-md-12 col-sm-12 content">
+                    <h1>Tienda Tecno</h1>
+                    <h2 class="subtitleBanner">Tenemos <span class="changecontent"></span></h2>
+                    <p class="formatoTexto">Tú tienda de confianza</p>
+                </div>
+                <div class="img col-lg-6 col-md-12">
+                    <img src=".//img/zFlip.png" alt="foto del Samsung Z-Flip">
+                </div>
+        </section>
+    
         <section class="d-flex justify-content-center flex-wrap gap-5 fondo" id="contenedor_productos">
-
+    
         </section>
     </main>
+    <!--ARROW UP-->
+    <a href="#" class="arrow"><i><img src="./img/up-arrow.png" alt="" width="50px"></i></a>
     <section>
         <!-- MODAL -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -71,8 +88,9 @@
                         <p class="text-center" id="total"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Seguir comprando</button>
-                        <button type="button" class="btn btn-danger" id="finalizar_compra">Finalizar compra</button>
+                        <button type="button" class="btn btn-light newColorBtn1" data-bs-dismiss="modal">Seguir Comprando</button>
+                        <button type="button" class="btn btn-light newColorBtn2" id="vaciar_carrito">Vaciar Carrito</button>
+                        <button type="button" class="btn btn-light newColorBtn3" id="finalizar_compra">Finalizar Compra</button>
                     </div>
                 </div>
             </div>

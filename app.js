@@ -58,105 +58,120 @@ class Producto {
 //                            MOSTRAR PRODUCTOS - CALCULAR TOTAL - FINALIZAR COMPRA)
 class Carrito {
     constructor() {
-        this.listaCarrito = []
-        this.contenedor_carrito = document.getElementById('contenedor_carrito')
-        this.total = document.getElementById('total')
-        this.finalizar_compra = document.getElementById("finalizar_compra")
-        this.keyStorage = "listaCarrito"
+        this._listaCarrito = []
+        this._contenedor_carrito = document.getElementById('contenedor_carrito')
+        this._total = document.getElementById('total')
+        this._finalizar_compra = document.getElementById("finalizar_compra")
+        this._vaciar_carrito = document.getElementById("vaciar_carrito")
+        this._keyStorage = "listaCarrito"
     }
 
     levantarStorage() {
-        this.listaCarrito = JSON.parse(localStorage.getItem(this.keyStorage)) || []
+        this._listaCarrito = JSON.parse(localStorage.getItem(this._keyStorage)) || []
 
-        if (this.listaCarrito.length > 0) {
+        if (this._listaCarrito.length > 0) {
             let listaAuxiliar = []
 
-            for (let i = 0; i < this.listaCarrito.length; i++) {
-                let productoDeLaClaseProducto = new Producto(this.listaCarrito[i])
+            for (let i = 0; i < this._listaCarrito.length; i++) {
+                let productoDeLaClaseProducto = new Producto(this._listaCarrito[i])
                 listaAuxiliar.push(productoDeLaClaseProducto)
             }
 
-            this.listaCarrito = listaAuxiliar
+            this._listaCarrito = listaAuxiliar
         }
     }
 
     guardarEnStorage() {
-        let listaCarritoJSON = JSON.stringify(this.listaCarrito)
+        let listaCarritoJSON = JSON.stringify(this._listaCarrito)
         
-        localStorage.setItem(this.keyStorage, listaCarritoJSON)
+        localStorage.setItem(this._keyStorage, listaCarritoJSON)
     }
 
     agregar(productoAgregar) {
-        let existeElProducto = this.listaCarrito.some(producto => producto.id == productoAgregar.id)
+        let existeElProducto = this._listaCarrito.some(producto => producto.id == productoAgregar.id)
 
         if (existeElProducto) {
-            let producto = this.listaCarrito.find(producto => producto.id == productoAgregar.id)
+            let producto = this._listaCarrito.find(producto => producto.id == productoAgregar.id)
             producto.cantidad = producto.cantidad + 1
         } else {
-            this.listaCarrito.push(productoAgregar)
+            this._listaCarrito.push(productoAgregar)
         }
     }
 
     eliminar(productoEliminar) {
-        let producto = this.listaCarrito.find(producto => producto.id == productoEliminar.id)
-        let indice = this.listaCarrito.indexOf(producto)
-        this.listaCarrito.splice(indice, 1)
+        let producto = this._listaCarrito.find(producto => producto.id == productoEliminar.id)
+        let indice = this._listaCarrito.indexOf(producto)
+        this._listaCarrito.splice(indice, 1)
     }
 
-    limpiarContenedorCarrito() {
-        this.contenedor_carrito.innerHTML = ""
+    _limpiarContenedorCarrito() {
+        this._contenedor_carrito.innerHTML = ""
+    }
+
+    _eventoBotonEliminarProducto(producto){
+        let btn_eliminar = document.getElementById(`eliminar-${producto.id}`)
+
+        btn_eliminar.addEventListener("click", () => {
+            this.eliminar(producto)
+            this.guardarEnStorage()
+            this.mostrarProductos()
+        })
+    }
+
+
+    _eventoBotonAumentarCantidad(producto){
+        let btn_plus = document.getElementById(`plus-${producto.id}`)
+
+        btn_plus.addEventListener("click", () => {
+            producto.aumentarCantidad()
+            this.mostrarProductos()
+        })
+    }
+
+    _eventoBotonDisminuirCantidad(producto){
+        let btn_minus = document.getElementById(`minus-${producto.id}`)
+        btn_minus.addEventListener("click", () => {
+            if (producto.disminuirCantidad()) {
+                this.mostrarProductos()
+            }
+        })
     }
 
     mostrarProductos() {
-        this.limpiarContenedorCarrito()
+        this._limpiarContenedorCarrito()
 
-        this.listaCarrito.forEach(producto => {
-            contenedor_carrito.innerHTML += producto.descripcionHTMLCarrito()
+        this._listaCarrito.forEach(producto => {
+            this._contenedor_carrito.innerHTML += producto.descripcionHTMLCarrito()
         })
 
         //EVENTO AL BOTÓN ELIMINAR PRODUCTO DEL CARRITO
-        this.listaCarrito.forEach(producto => {
+        this._listaCarrito.forEach(producto => {
 
-            let btn_eliminar = document.getElementById(`eliminar-${producto.id}`)
-            let btn_plus = document.getElementById(`plus-${producto.id}`)
-            let btn_minus = document.getElementById(`minus-${producto.id}`)
+            this._eventoBotonEliminarProducto(producto)
+            this._eventoBotonAumentarCantidad(producto)
+            this._eventoBotonDisminuirCantidad(producto)
 
-            btn_eliminar.addEventListener("click", () => {
-                this.eliminar(producto)
-                this.guardarEnStorage()
-                this.mostrarProductos()
-            })
-
-            btn_plus.addEventListener("click", () => {
-                producto.aumentarCantidad()
-                this.mostrarProductos()
-            })
-
-            btn_minus.addEventListener("click", () => {
-                if (producto.disminuirCantidad()) {
-                    this.mostrarProductos()
-                }
-            })
         })
-        total.innerHTML = "Precio Total: $" + this.calcular_total()
+
+        this._total.innerHTML = "Precio Total: $" + this._calcular_total()
     }
 
-    calcular_total() {
-        return this.listaCarrito.reduce((acumulador, producto) => acumulador + producto.precio * producto.cantidad, 0)
+    _calcular_total() {
+        return this._listaCarrito.reduce((acumulador, producto) => acumulador + producto.precio * producto.cantidad, 0)
     }
 
     eventoFinalizarCompra() {
-        this.finalizar_compra.addEventListener("click", () => {
+        this._finalizar_compra.addEventListener("click", () => {
 
-            if (this.listaCarrito.length > 0) {
-                let precio_total = this.calcular_total()
+            if (this._listaCarrito.length > 0) {
+                let precio_total = this._calcular_total()
                 //LIMPIAR CARRITO
-                this.listaCarrito = []
+                this._listaCarrito = []
                 //LIMPIAR EL STORAGE
-                localStorage.removeItem(this.keyStorage)
+                localStorage.removeItem(this._keyStorage)
                 //TOTAL
-                this.limpiarContenedorCarrito()
-                this.total.innerHTML = ""
+                this._limpiarContenedorCarrito()
+                this._total.innerHTML = ""
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
@@ -174,49 +189,46 @@ class Carrito {
             }
         })
     }
+
+    eventoVaciarCarrito(){
+        this._vaciar_carrito.addEventListener("click", ()=>{
+            this._listaCarrito = []
+            this._limpiarContenedorCarrito()
+            localStorage.clear()
+            this.mostrarProductos()
+        })
+    }
 }
 
 //CLASE CONTROLADORA DE PRODUCTOS (CARGAR PRODUCTOS - AGREGAR - MOSTRAR)
 class ProductoController {
     constructor() {
         this.listaProductos = []
+        this.contenedor_productos = document.getElementById("contenedor_productos")
     }
+//CARGA DE DATOS DE JSON LOCAL CON FETCH
+    async cargarProductos() {
+        try {
+            const response = await fetch('simular_api.json');
+            const productos = await response.json();
 
-    cargarProductos() {
-        const p1 = new Producto({ id: 1, nombre: "Smart tv Philips 6900", precio: 110000, descripcion: "Full HD - Dolby Atmos - Android 10 - 3 puertos HDMI - 2 puertos USB", img: "https://images.philips.com/is/image/philipsconsumer/6beb5493cd3d4725bd0cafb700cc4cb9?$jpglarge$&wid=420&hei=360 " })
-        const p2 = new Producto({ id: 2, nombre: "Tablet Lenovo tab M10", precio: 140000, descripcion: "Memoria interna de 256 GB - incluye cable USB-c - Procesador quad-Core", img: "https://images.fravega.com/f500/a4b5fffbab7e13d5a52f41e71aaf0366.jpg" })
-        const p3 = new Producto({ id: 3, nombre: "Auriculares Sony 1000X", precio: 160000, descripcion: "Alcance 10m - 30 hs de duración de batería - Cancelación de ruido", img: "https://www.sony.com.ar/image/5d02da5df552836db894cead8a68f5f3?fmt=pjpeg&wid=330&bgcolor=FFFFFF&bgc=FFFFFF" })
-        const p4 = new Producto({ id: 4, nombre: "Smart Watch Samsung 5pro", precio: 175000, descripcion: "Pantalla SAMOLED de 1.4 - Resistente hasta 50 mts bajo el agua - 80 hs de duración de batería", img: "https://http2.mlstatic.com/D_NQ_NP_2X_932337-MLU54959626547_042023-F.webp" })
-        const p5 = new Producto({ id: 5, nombre: "Celular Motorola G72", precio: 135000, descripcion: "Dual SIM - Almacenamiento interno de 128 GB - Memoria RAM de 6 GB", img: "https://www.cetrogar.com.ar/media/catalog/product/2/0/2022_victoria_basicpack_bright-white_pdp-hero.jpg?width=500&height=500&canvas=500,500&quality=80&bg-color=255,255,255&fit=bounds" })
-        const p6 = new Producto({ id: 6, nombre: "Notebook Lenovo V15", precio: 436000, descripcion: "Core i5 - 16 GB RAM - Placa de video Iris Xe G7 - Es antireflejo", img: "https://http2.mlstatic.com/D_NQ_NP_2X_859834-MLU70065239743_062023-F.webp" })
-        const p7 = new Producto({ id: 7, nombre: "Proyector Samsung Sp-Isp3blaxzb", precio: 330000, descripcion: "Mini HDMI - Full HD 1080 p - Tecnología de proyeción DLP", img: "https://http2.mlstatic.com/D_NQ_NP_2X_917779-MLA50739463894_072022-F.webp" })
-        const p8 = new Producto({ id: 8, nombre: "Asistente Amazon 5th Gen", precio: 55000, descripcion: "Con reconocimiento de voz - Control inteligente de dispositivos del Hogar - Pantalla digital", img: "https://http2.mlstatic.com/D_NQ_NP_780781-MLU69957173342_062023-O.webp" })
-        const p9 = new Producto({ id: 9, nombre: "Samsung S23 ultra", precio: 610000, descripcion: "Memoria interna de 256 GB - Cámaras de 200 mpx y 12 mpx - Procesador Snapdragon 735", img: "https://images.start.com.ar/SM-S918BZKMARO-3.jpg" })
-        const p10 = new Producto({ id: 10, nombre: "Monitor LG ultra Wide", precio: 390000, descripcion: "Pantalla LCD de 34p - 75Hz de frecuencia - Respuesta de 5ms", img: "https://images.fravega.com/f300/2801e349c144f409f5d41bd5814aedb4.jpg.webp" })
-        
-        this.agregar(p1)
-        this.agregar(p2)
-        this.agregar(p3)
-        this.agregar(p4)
-        this.agregar(p5)
-        this.agregar(p6)
-        this.agregar(p7)
-        this.agregar(p8)
-        this.agregar(p9)
-        this.agregar(p10)
+            productos.forEach(productoData => {
+                const producto = new Producto(productoData);
+                this.agregar(producto);
+            });
+
+            this.mostrarProductos();
+        } catch (error) {
+            console.error('Error cargando productos:', error);
+        }
     }
 
     agregar(producto) {
         this.listaProductos.push(producto)
     }
 
-    mostrarProductos() {
-        let contenedor_productos = document.getElementById("contenedor_productos")
-        this.listaProductos.forEach(producto => {
-            contenedor_productos.innerHTML += producto.descripcionHTML()
-        })
-
-        //EVENTO AL BOTÓN AÑADIR AL CARRITO
+    eventoAgregarAlCarrito(){
+        //damos evento al botón "añadir al carrito"
         this.listaProductos.forEach(producto => {
 
             const btn = document.getElementById(`ap-${producto.id}`)
@@ -228,13 +240,22 @@ class ProductoController {
                 Toastify({
                     avatar: `${producto.img}`,
                     text: `¡${producto.nombre} añadido!`,
-                    duration: 100000,
-                    gravity: "bottom",
-                    position: "right",
+                    duration: 1000,
+                    gravity: "bottom", 
+                    position: "right", 
                     
                 }).showToast();
             })
         })
+    }
+
+    mostrarProductos() {
+        
+        this.listaProductos.forEach(producto => {
+            this.contenedor_productos.innerHTML += producto.descripcionHTML()
+        })
+
+        this.eventoAgregarAlCarrito()
     }
 }
 
@@ -242,7 +263,9 @@ class ProductoController {
 const carrito = new Carrito()
 carrito.levantarStorage()
 carrito.mostrarProductos()
+//A LA ESPERA DEL CLICK
 carrito.eventoFinalizarCompra()
+carrito.eventoVaciarCarrito()
 
 //INSTANCIA DE PRODUCTOCONTROLLER PARA GESTIONAR TODOS LOS PRODUCTOS 
 const controlador_productos = new ProductoController()
